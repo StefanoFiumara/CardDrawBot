@@ -43,7 +43,7 @@ namespace CardDrawBot.Commands.CommandModules
                 var drawnCharts = DrawSongs(songData, numSongs, diffs, min, max);
                 
                 var opts = FormatDraftOptions(numSongs, min, max, diffs);
-                var charts = FormatSongDraft(drawnCharts);
+                var charts = FormatSongs(drawnCharts);
 
                 var reply = $"Here is your song draw:\n{opts}{charts}";
 
@@ -60,7 +60,7 @@ namespace CardDrawBot.Commands.CommandModules
             }
         }
 
-        private List<(Song Song, Chart Chart)> DrawSongs(List<Song> songData, int numSongs, List<string> diffs, int min, int max)
+        private static List<(Song Song, Chart Chart)> DrawSongs(List<Song> songData, int numSongs, List<string> diffs, int min, int max)
         {
             var filteredSongs = songData
                 .Where(s => s.Charts
@@ -77,13 +77,12 @@ namespace CardDrawBot.Commands.CommandModules
             }
 
             var drawnSongs = filteredSongs.TakeRandom(numSongs);
-            
             var drawnCharts = drawnSongs.Select(s => (Song: s, Chart: s.Charts.TakeRandom(1).Single())).ToList();
 
             return drawnCharts;
         }
 
-        private string FormatDraftOptions(int numSongs, int lvlMin, int lvlMax, List<string> difficulties)
+        private static string FormatDraftOptions(int numSongs, int lvlMin, int lvlMax, List<string> difficulties)
         {
             var opts = new StringBuilder();
             opts.AppendLine("```");
@@ -94,9 +93,8 @@ namespace CardDrawBot.Commands.CommandModules
 
             return opts.ToString();
         }
-        private string FormatSongDraft(List<(Song song, Chart chart)> songs)
+        private static string FormatSongs(List<(Song song, Chart chart)> songs)
         {
-            var sb = new StringBuilder();
             var headers = new List<string> { "Name", "BPM", "Difficulty" };
 
             var headerPropMap = new Dictionary<string, Func<(Song s, Chart c), string>>()
