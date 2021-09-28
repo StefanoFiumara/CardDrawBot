@@ -23,8 +23,8 @@ namespace CardDrawBot.Commands.CommandModules
         // TODO: Sub-commands for when we implement multiple games.
         //      e.g.
         //       * !draw smx 5 15-23
-        //       * !draw ddra20 5 15-23
-        //       * !draw extreme 5 15-23
+        //       * !draw ddra20 5 14-19
+        //       * !draw extreme 5 7-9
         [Command("draw")]
         public async Task DrawAsync(int numSongs = 5, string range = "15-27", string diffFilter = "hw")
         {
@@ -86,6 +86,7 @@ namespace CardDrawBot.Commands.CommandModules
         {
             var opts = new StringBuilder();
             opts.AppendLine("```");
+            opts.AppendLine($"Game: SMX"); // Hardcoded
             opts.AppendLine($"Song Count: {numSongs}");
             opts.AppendLine($"Level Range: {lvlMin}-{lvlMax}");
             opts.AppendLine($"Difficulties: {string.Join(", ", difficulties)}");
