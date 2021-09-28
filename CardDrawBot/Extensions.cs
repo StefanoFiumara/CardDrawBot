@@ -14,10 +14,10 @@ namespace CardDrawBot
             for (int i = 0; i < resultCount; i++)
             {
                 var random = rng.Next(0, list.Count);
-                var card = list[random];
+                var item = list[random];
                 
-                result.Add(card);
-                list.Remove(card);
+                result.Add(item);
+                list.Remove(item);
             }
 
             return result;
